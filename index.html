@@ -1,0 +1,88 @@
+<html>
+  <head>
+      <style>
+#zombie_map {
+    height: 100%;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;  
+    background-color: grey;
+}
+</style>
+    <title>Where's Zombie Game</title>
+  </head>
+  <body>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjk3NqNM0Slj4g2-XDS0d_4Jvcar_reZg&callback=initMap">
+  </script>
+      
+      My zombie map
+<div id="zombie_map"></div>
+      <script>
+    var zombie_map;
+          all_markers = []
+          var all_markers = []
+          var data = 
+`43.66841253298274 -79.82683967475816 zombie1.png
+ 43.66825343880563 -79.82642661456987 zombie1.png
+ 43.66837372956379 -79.82570778255388 zombie1.png
+ 43.667721828374624 -79.82606719856187 zombie1.png
+ 43.66888593267405 -79.82572387580797 zombie1.png
+ 43.66907218726681 -79.82647489433214 zombie1.png
+ 43.668742361030986 -79.8272259128563 hospital1.png
+ 43.667842120198166 -79.82506941680833 hospital1.png
+ 43.66808658348389 -79.82623885993883 weaponss.png
+ 43.66813314780639 -79.82712935333177 weaponss.png
+ 43.66876564294237 -79.82630323295518 weaponss.png
+ 43.66875788230625 -79.82530545120164 weaponss.png
+ 43.668494020080885 -79.82501577262803 weaponss.png`;
+  var markers = data.split("\n");
+          
+    function initMap() {
+
+            zombie_map = new google.maps.Map(document.getElementById("zombie_map"), {
+            zoom: 12,
+            center: {lat: 43.7315, lng: -79.7624}
+              });
+            
+            if(navigator.geolocation) {
+              navigator.geolocation.watchPosition(set_my_position);
+              }
+            else {
+              alert("Geolocation doesn't work in your browser");
+              }
+         
+            for(var i=0; i < markers.length; i++){
+                document.write(markers[i] + "<br>");
+                var marker_data = markers[i].trim();
+                marker_data = marker_data.split(" ");
+                var latitude = marker_data[0];
+                var longitude = marker_data[1];
+                var emoji = marker_data[2];
+                var marker_position = new google.maps.LatLng(marker_data[0], marker_data[1]);
+                var marker = new google.maps.Marker({
+                  position: marker_position,
+                  map: zombie_map,
+                  icon: emoji
+                  });
+                all_markers.push(marker);
+                }
+
+        }
+          
+        function set_my_position(position) {
+          var pos = new google.maps.LatLng(43.668203,-79.826603)
+
+
+          var loc = "hello.png"
+          var marker = new google.maps.Marker({
+                  position: pos,
+                  map: zombie_map,
+                  icon: loc
+                  });       
+        }
+</script>
+  </body>
+</html>
+
